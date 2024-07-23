@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import librerias.DocumentoNumerico;
 import librerias.Propiedades;
@@ -34,6 +35,8 @@ public class FrmVentas extends javax.swing.JFrame {
         cargarCombo("SELECT descripcion FROM condiciones ORDER BY codigocondicion;", cmbCondicion);
         getFecha();
         txtCantidad.setDocument(new DocumentoNumerico("."));
+        TableRowSorter<TableModel> ordenador = new TableRowSorter<>(tablaDetalleVenta.getModel());
+        tablaDetalleVenta.setRowSorter(ordenador);
     }
 
     private void cargarCombo(String sql, JComboBox combo) {
@@ -271,7 +274,7 @@ public class FrmVentas extends javax.swing.JFrame {
         double subtotal = cantidad * precio;
 
         DefaultTableModel modelo = (DefaultTableModel) tablaDetalleVenta.getModel();
-        Object[] item = {codigoInterno, descripcion, cantidad, precio, subtotal};
+        Object[] item = {codigoInterno, descripcion, unidamedida, cantidad, precio, subtotal};
         modelo.addRow(item);
 
     }
@@ -586,6 +589,11 @@ public class FrmVentas extends javax.swing.JFrame {
         jLabel21.setText("STOCK:");
 
         jButton4.setText("GUARDAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -595,6 +603,11 @@ public class FrmVentas extends javax.swing.JFrame {
         });
 
         jButton6.setText("ELIMINAR");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel22.setText("Unidad de Medida:");
 
@@ -692,9 +705,9 @@ public class FrmVentas extends javax.swing.JFrame {
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUnidadMedida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
+                        .addComponent(btnAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)
@@ -814,6 +827,14 @@ public class FrmVentas extends javax.swing.JFrame {
         txtDireccion.setText(clientes.getSeleccionado(4));
         txtEmail.setText(clientes.getSeleccionado(5));
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
